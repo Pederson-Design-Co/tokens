@@ -10,8 +10,7 @@
     "typecheck": "tsc -p tsconfig.json",
     "lint": "eslint . --no-error-on-unmatched-pattern",
     "test": "node --test",
-    "check": "node scripts/check-docs.ts",
-    "prepare": "lefthook install"
+    "check": "node scripts/check-docs.ts"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
