@@ -1,0 +1,28 @@
+# The same three checks the doorman runs, run again by GitHub on every push and pull request,
+# so a red result is visible whether or not the hook ran locally. The law (_Playbook) is
+# checked out beside the repo, the same layout as on a Mac, so the docs checker sees it.
+name: check
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tokens
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          path: tokens
+      - uses: actions/checkout@v7
+        with:
+          repository: Pederson-Design-Co/_Playbook
+          path: _Playbook
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: tokens/.nvmrc
+          cache: npm
+          cache-dependency-path: tokens/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run check

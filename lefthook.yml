@@ -1,0 +1,11 @@
+# The doorman: git refuses a commit while any check reports anything (RULES.md § Never, § 11).
+# Installed automatically by `npm install` (lefthook's postinstall) and by `npm run prepare`.
+pre-commit:
+  parallel: true
+  jobs:
+    - name: typecheck
+      run: npm run typecheck
+    - name: lint
+      run: npm run lint
+    - name: check
+      run: npm run check
