@@ -2,7 +2,7 @@
   "name": "@pedersondesignco/tokens",
   "private": true,
   "type": "module",
-  "description": "The design decisions every Pederson Design Co project renders, as plain values. Rules in RULES.md; law in ../_Playbook.",
+  "description": "Rules in RULES.md; law in ../_Playbook.",
   "engines": {
     "node": ">=24"
   },

@@ -1,6 +1,8 @@
 // The docs half of the gate: reads every machinery doc as a claim and the folder as the truth.
-// Seven rules, listed in STATUS.md 2c. Any finding exits 1. Plain Node (which runs .ts files
-// directly since Node 23), no dependencies.
+// Ten rules, described in _Playbook/setup/PATTERNS.md ("A code project also carries the
+// gate"). Any finding exits 1. Plain Node (which runs .ts files directly since Node 23), no
+// dependencies. This file is shared with the template byte for byte (rule 9): change the
+// template copy and every project's copy in the same commit.
 //
 // Output, one finding per block, same shape as the ed2go check.js:
 //   KIND
@@ -226,6 +228,61 @@ function phaseList(path: string, text: string): void {
   });
 }
 
+// Rule 8: SIZE CAP. A doc that outgrows its cap is split or pruned, never merely appended to.
+// Kestrel's topic docs reached 1,500 lines one reasonable paragraph at a time.
+const SIZE_CAP: Record<string, number> = { 'CLAUDE.md': 60, 'STATUS.md': 60, 'RULES.md': 160, 'BACKLOG.md': 200 };
+const DOCS_CAP = 300;
+function sizeCap(path: string, text: string): void {
+  const name = basename(path);
+  const cap = SIZE_CAP[name] ?? (path.includes('/docs/') ? DOCS_CAP : 0);
+  if (!cap) return;
+  const lines = text.split('\n').length;
+  if (lines > cap) {
+    finding('SIZE CAP', relRoot(path), cap, `${lines} lines`, `at most ${cap}; split it or delete something`, 'setup/PATTERNS.md, the gate');
+  }
+}
+
+// Rule 9: TEMPLATE DRIFT. The gate files a project shares with the template stay byte-identical,
+// and the four-rules block in CLAUDE.md matches the template's. Skipped when the law is absent.
+const SHARED_WITH_TEMPLATE = ['scripts/check-docs.ts', 'tsconfig.base.json', 'lefthook.yml', '.nvmrc'];
+function templateDrift(): void {
+  const template = join(LAW, 'setup', 'code-project');
+  if (!LAW_PRESENT || !existsSync(template)) {
+    counts.skipped += SHARED_WITH_TEMPLATE.length + 1;
+    return;
+  }
+  for (const rel of SHARED_WITH_TEMPLATE) {
+    const mine = join(ROOT, rel);
+    const theirs = join(template, rel);
+    if (!existsSync(mine) || !existsSync(theirs)) continue;
+    if (read(mine) !== read(theirs)) {
+      finding('TEMPLATE DRIFT', rel, 1, 'differs from the template', `identical to _Playbook/setup/code-project/${rel}; change both in one commit`, 'setup/PATTERNS.md, the gate');
+    }
+  }
+  const block = (text: string): string => {
+    const m = text.match(/Four rules that catch most mistakes before they happen:\n\n([\s\S]*?)\n\n/);
+    return m?.[1] ?? '';
+  };
+  const mineClaude = join(ROOT, 'CLAUDE.md');
+  const templateClaude = join(LAW, 'setup', 'templates', 'claude-template.md');
+  if (existsSync(mineClaude) && existsSync(templateClaude)) {
+    const mine = block(read(mineClaude));
+    const theirs = block(read(templateClaude));
+    if (!mine || mine !== theirs) {
+      finding('TEMPLATE DRIFT', 'CLAUDE.md', 1, 'the four-rules block differs from the template', 'the block copied exactly from setup/templates/claude-template.md', 'setup/PATTERNS.md, the gate');
+    }
+  }
+}
+
+// Rule 10: LINE ENDINGS. A carriage return in a doc means it came from a Windows machine and
+// will never compare equal to its Mac/Linux twin, however identical it looks.
+function lineEndings(path: string, text: string): void {
+  const at = text.indexOf('\r');
+  if (at >= 0) {
+    finding('LINE ENDINGS', relRoot(path), lineOf(text, at), 'a carriage return (Windows line ending)', 'LF line endings only', 'setup/PATTERNS.md, the gate');
+  }
+}
+
 // Rule 6: MACHINERY. The four files exist; the forbidden names do not.
 function machinery(): void {
   for (const name of MACHINERY) {
@@ -252,10 +309,13 @@ for (const [path, text] of docs) {
   deadReferences(path, text);
   citations(path, text);
   templateMarkers(path, text);
+  sizeCap(path, text);
+  lineEndings(path, text);
   if (basename(path) === 'STATUS.md') phaseList(path, text);
 }
 backlogIds(docs);
 machinery();
+templateDrift();
 
 // Rule 7: CANARY. A check that examined nothing is not a pass.
 if (counts.references === 0) {

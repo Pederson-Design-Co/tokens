@@ -5,9 +5,9 @@ and what is next; chat scrollback is not a record (WORKFLOW.md §1).
 
 ## What this is
 
-tokens: the design decisions every Pederson Design Co project renders, as plain values.
-Rules in [RULES.md](RULES.md); law in `../_Playbook/`. Scaffolded 2026-09-19 from
-`_Playbook/setup/code-project/` as the template's first use after studio.
+What tokens is: [CLAUDE.md](CLAUDE.md). Rules: [RULES.md](RULES.md). Law: `../_Playbook/`.
+Scaffolded 2026-09-19 from `_Playbook/setup/code-project/` as the template's first use after
+studio.
 
 ## Current phase: Phase 0, the empty package with its gate
 
