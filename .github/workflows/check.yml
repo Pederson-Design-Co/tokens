@@ -1,4 +1,4 @@
-# The same three checks the doorman runs, run again by GitHub on every push and pull request,
+# The same four checks the doorman runs, run again by GitHub on every push and pull request,
 # so a red result is visible whether or not the hook ran locally. The law (_Playbook) is
 # checked out beside the repo, the same layout as on a Mac, so the docs checker sees it.
 name: check
@@ -25,4 +25,5 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm run lint
+      - run: npm run test
       - run: npm run check

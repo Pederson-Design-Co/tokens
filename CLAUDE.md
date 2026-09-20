@@ -22,7 +22,8 @@ Four rules that catch most mistakes before they happen:
 | Where we are and what is next | STATUS.md |
 | Ordered work, open questions, parked decisions | BACKLOG.md |
 | How tokens works: what a token is, naming, versioning, what never goes here | RULES.md |
-| The values themselves | `src/` (created with the first token) |
+| The values themselves, one file per group | `src/` |
+| The contrast arithmetic every color is measured with | `src/contrast.ts` |
 | The gate: checks, doorman, workflow | `package.json`, `eslint.config.js`, `lefthook.yml`, `.github/workflows/check.yml`, `scripts/check-docs.ts` |
 
 Anything not listed here routes through `_Playbook/WORKFLOW.md` §6.

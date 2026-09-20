@@ -7,5 +7,7 @@ pre-commit:
       run: npm run typecheck
     - name: lint
       run: npm run lint
+    - name: test
+      run: npm run test
     - name: check
       run: npm run check

@@ -9,17 +9,21 @@ What tokens is: [CLAUDE.md](CLAUDE.md). Rules: [RULES.md](RULES.md). Law: `../_P
 Scaffolded 2026-09-19 from `_Playbook/setup/code-project/` as the template's first use after
 studio.
 
-## Current phase: Phase 0, the empty package with its gate
+## Current phase: Phase 1, the first tokens
 
 - [x] **0a** Scaffolded from the template; the four machinery docs written; gate green on the empty package
+- [x] **1a** The first tokens, only what studio's first button needs: `motion` (three speeds, three curves, two springs, the pressed scale), `haptic` (tap, select, success, warning, error, as platform-neutral names), `color` (surface, action, four text tiers, each with a light and a dark value and a measured ratio), `space`, `radius`, `size`, `text`; `src/contrast.ts` measures; 7 tests recompute every readable pairing from the hex and hold the motion family in order
 
 ## Where things stand
 
-- No tokens exist yet. `src/` is created with the first one, which arrives when studio's kit
-  gallery needs it (studio Phase 3).
-- The gate runs before every commit and on every push, with `_Playbook` checked out beside
-  the repo on GitHub.
+- The gate runs four checks now (typecheck, lint, test, check) before every commit and on
+  every push, with `_Playbook` checked out beside the repo on GitHub.
+- `text.tertiary` on `surface` measures **4.54:1** in light mode, just over the 4.5 floor.
+  Any future change to either value has to be re-measured, and the test will say so.
+- Nothing is published to npm. studio installs this package from GitHub (RULES.md §6).
 
 ## Active constraints
 
 - Consumers install from GitHub, not npm (RULES.md §6, BACKLOG T-01).
+- A value change here reaches studio only after a commit, a push, and an update there
+  (studio's backlog carries the item about that loop).

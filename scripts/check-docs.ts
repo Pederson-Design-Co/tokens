@@ -244,7 +244,7 @@ function sizeCap(path: string, text: string): void {
 
 // Rule 9: TEMPLATE DRIFT. The gate files a project shares with the template stay byte-identical,
 // and the four-rules block in CLAUDE.md matches the template's. Skipped when the law is absent.
-const SHARED_WITH_TEMPLATE = ['scripts/check-docs.ts', 'tsconfig.base.json', 'lefthook.yml', '.nvmrc'];
+const SHARED_WITH_TEMPLATE = ['scripts/check-docs.ts', 'scripts/gate.test.ts', 'tsconfig.base.json', 'lefthook.yml', '.nvmrc'];
 function templateDrift(): void {
   const template = join(LAW, 'setup', 'code-project');
   if (!LAW_PRESENT || !existsSync(template)) {

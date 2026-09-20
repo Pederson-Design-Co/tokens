@@ -6,6 +6,8 @@ and update whatever doc it changed. Never mark an item done and leave it here.
 Items state the problem, not the solution; the *how* is decided when the item is picked up.
 Each carries an ID so a gate can name it, a `Why`, and a `Ref` naming the evidence.
 
+An open question that needs Sam is asked at the gate that needs it, not stored here.
+
 ---
 
 ## The order of work
@@ -13,7 +15,7 @@ Each carries an ID so a gate can name it, a `Why`, and a `Ref` naming the eviden
 | # | What | Blocked by | State |
 |---|---|---|---|
 | T-01 | The package name `@pedersondesignco/tokens` is not reserved on npm | — | parked |
-| T-02 | The first tokens: only what studio's first primitive needs | studio Phase 3 | open |
+| T-03 | A ratio written in a comment is not checked against the hex beside it | — | open |
 
 **T-01: the package name `@pedersondesignco/tokens` is not reserved on npm.**
 - Why: consumers install from GitHub, so npm is not needed today. But the scope
@@ -25,8 +27,12 @@ Each carries an ID so a gate can name it, a `Why`, and a `Ref` naming the eviden
   `--access public`.
 - Ref: npm's docs on scoped public packages and organizations, read 2026-09-19.
 
-**T-02: the first tokens, only what studio's first primitive needs.**
-- Why: RULES.md §1 says values live here and nowhere else, so the first `Pressable` in studio
-  cannot carry its own press scale, duration, curve or colors. Those arrive here first, each
-  with light and dark values and measured ratios (RULES.md §4).
-- Ref: studio RULES.md §4 and §5; studio's backlog item on the Kestrel color decisions to port.
+**T-03: a ratio written in a comment is not checked against the hex beside it.**
+- Why: RULES.md §4 says each color records its measured ratio, and `src/color.ts` does. The
+  tests measure the real pairings from the hex, which is the substantive bar, but nothing
+  compares the *comment* to the computation. Two of the first four comments were wrong when
+  written (2026-09-19) and only a manual run caught them.
+- Decisions: the ed2go design system solved this by recomputing every comment on each run and
+  failing on a mismatch; that approach ports, and the arithmetic already exists in
+  `src/contrast.ts`.
+- Ref: `src/color.ts` comments versus the measured values, 2026-09-19.
