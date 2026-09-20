@@ -13,6 +13,7 @@ studio.
 
 - [x] **0a** Scaffolded from the template; the four machinery docs written; gate green on the empty package
 - [x] **1a** The first tokens, only what studio's first button needs: `motion` (three speeds, three curves, two springs, the pressed scale), `haptic` (tap, select, success, warning, error, as platform-neutral names), `color` (surface, action, four text tiers, each with a light and a dark value and a measured ratio), `space`, `radius`, `size`, `text`; `src/contrast.ts` measures; 7 tests recompute every readable pairing from the hex and hold the motion family in order
+- [x] **1b** The two fades studio's first button needs: `opacity.pressed`, which replaces the shrink when the reader has Reduce Motion on, and `opacity.disabled`, Sam's fifty percent fade with the control staying in place; 2 tests keep the two apart. Both are judged on the phone in studio's 3d part 3, not here
 
 ## Where things stand
 

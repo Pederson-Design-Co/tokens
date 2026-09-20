@@ -7,6 +7,8 @@ export type { Color, Mode } from './color.ts';
 export { motion } from './motion.ts';
 export type { Curve, Spring } from './motion.ts';
 
+export { opacity } from './opacity.ts';
+
 export { haptic } from './haptic.ts';
 export type { HapticEffect, HapticName } from './haptic.ts';
 
