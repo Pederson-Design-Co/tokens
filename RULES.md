@@ -34,9 +34,12 @@ color decisions holds what is carried over.)
 
 ## 5. Versioning
 
-The package follows semver. Renaming or removing a token is a major version; changing a value
-is a minor version; adding a token is a minor version. A consumer pins a version and updates
-deliberately, so a change here can never surprise a project mid-build.
+There is none yet. Nothing is published, `package.json` carries no version field, and a new
+value reaches a project as soon as it merges and that project updates (§6). While the first
+values are still being judged on a phone, that speed is the point.
+
+What the scheme will be is decided when this package is published (BACKLOG T-01) and not
+before: a rule about versions that do not exist governs nothing (PRINCIPLES.md rule 8).
 
 ## 6. Delivery
 

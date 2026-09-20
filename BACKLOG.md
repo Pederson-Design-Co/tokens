@@ -24,7 +24,9 @@ An open question that needs Sam is asked at the gate that needs it, not stored h
   should already be Sam's.
 - Decisions: parked, not scheduled (Sam, 2026-09-19). When picked up: create an npm account,
   create the free organization `pedersondesignco`, enable two-factor auth, and publish with
-  `--access public`.
+  `--access public`. When picked up, the version scheme is decided with it; the starting
+  proposal, from the rule this replaced: renaming or removing a token is a major version,
+  changing a value or adding a token is a minor version.
 - Ref: npm's docs on scoped public packages and organizations, read 2026-09-19.
 
 **T-03: a ratio written in a comment is not checked against the hex beside it.**
